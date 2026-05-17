@@ -8,10 +8,23 @@ import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(helmet());
+
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim());
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
+    },
     credentials: true,
   })
 );
@@ -26,7 +39,9 @@ app.use('/api', limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/health', (_req, res) => res.json({ success: true, message: 'Server is running' }));
+app.get('/health', (_req, res) =>
+  res.json({ success: true, message: 'Server is running', env: process.env.NODE_ENV })
+);
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes);
 
