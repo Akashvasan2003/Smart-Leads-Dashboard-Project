@@ -16,4 +16,4 @@ export const SOURCE_COLORS: Record<LeadSource, string> = {
   Referral: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
 };
 
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const API_URL = import.meta.env.VITE_API_URL || '';
