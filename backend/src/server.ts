@@ -2,7 +2,7 @@ import 'dotenv/config';
 import app from './app';
 import connectDB from './config/database';
 
-const PORT = parseInt(process.env.PORT || '3000', 10);
+const PORT = parseInt(process.env.PORT || '8080', 10);
 
 const startServer = async (): Promise<void> => {
   await connectDB();
