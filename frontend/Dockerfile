@@ -7,7 +7,7 @@ RUN npm run build
 
 FROM node:20-alpine AS production
 WORKDIR /app
-RUN npm install -g serve
 COPY --from=builder /app/dist ./dist
+COPY static-server.js ./
 EXPOSE 3000
-CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:${PORT:-3000}"]
+CMD ["node", "static-server.js"]
