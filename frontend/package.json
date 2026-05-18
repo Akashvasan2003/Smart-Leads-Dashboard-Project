@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "npx serve -s dist -l ${PORT:-3000}",
+    "start": "node node_modules/serve/build/main.js -s dist -l ${PORT:-3000}",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix"
   },

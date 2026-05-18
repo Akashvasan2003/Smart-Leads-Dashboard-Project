@@ -8,4 +8,4 @@ cmds = ["npm install"]
 cmds = ["npm run build"]
 
 [start]
-cmd = "npx serve -s dist -l $PORT"
+cmd = "node node_modules/serve/build/main.js -s dist -l $PORT"
